@@ -1,0 +1,105 @@
+h1. DrumChuk
+
+By John Mileham
+
+My site: http://studiobleep.com
+My band: http://franklinkite.com
+
+DrumChuk is a customizable Ruby-based MIDI Drum Controller for the Wii Remote and Nunchuk.  I wrote it so that I could play it live and have it look right and sound good.  At the moment it's not a picnic to install and run, and has calibrations coded into it that may only work well on my particular wiimote and nunchuk, but I thought it might be interesting to performers looking for an expressive and playable Wii-based drum controller that they can customize to suit their needs.
+
+Some more info about the philosophy and playing style is covered below in *Playing DrumChuk*
+
+h2. Requirements
+
+# MacOS X - DrumChuk is pure Ruby, but WiiToMidi and rbcoremidi happen to be mac-specific, and without them, you'd have to write your own interface to the wiimote.
+# OS X Developer Tools - You need to be able to compile some C code
+# "rbcoremidi":http://github.com/gilesbowkett/rbcoremidi/tree/master - Provides MIDI in (it's kind of unclear which rbcoremidi fork is canonical, but I got Giles's working first)
+# "MIDIator":http://github.com/bleything/midiator/tree/master - Provides MIDI out
+# "WiiToMidi":http://mike.verdone.ca/wiitomidi/ - Connects via bluetooth and generates MIDI controller data streams based on accelerometer inputs
+# The MIDI consumer of your choice with a drum sampler.  Preferrably capable of only listening on a specific channel rather than glomming all channels on all inputs together (Ahem, GarageBand).  "Ableton":http://www.ableton.com/ works nice with "Battery 3":http://www.native-instruments.com/index.php?id=battery.
+
+h2. Installing DrumChuk
+
+Clone rbcoremidi to your ~/src directory (or wherever):
+
+bq. @git clone git://github.com/gilesbowkett/rbcoremidi.git@
+
+Compile it:
+
+bq. <pre><code>
+cd rbcoremidi
+ruby extconf.rb
+make
+ruby coremidi.rb@
+</code></pre>
+
+Install the MIDIator gem:
+
+bq. @sudo gem install midiator@
+
+Install "WiiToMidi":http://mike.verdone.ca/wiitomidi/ to your Applications folder.
+
+Open @/Applications/Utilities/Audio MIDI Setup@
+* Go to the MIDI Devices tab
+* Double-click IAC Driver
+* Make sure that there's at least one port being provided
+* Check the *Device is online* box
+* You can close Audio MIDI Setup now
+
+Clone DrumChuk to your ~/src directory:
+
+bq. @git clone git://github.com/jmileham/drumchuk.git@
+
+Edit the location of rbcoremidi in drumchuk.rb (if necessary -- if rbcoremidi is in the same parent dir as drumchuk, you're all set).
+
+h2. Running DrumChuk
+
+First open WiiToMidi and follow the instructions for binding your wiimote.  It's kind of flaky.  Some tips:
+
+* If at first you don't succeed, kill WiiToMidi, turn your wiimote off by holding the power button in the upper left for a couple seconds, and try again.
+* When you do get a successful connection (and the lefthand blue light stays lit), that's a good sign.  If the light goes out, turn the wiimote off, kill WiiToMidi and try again.
+* Once the lefthand light is lit, press the down arrow twice to set the smoothing to 2 or less (the default is 4, which is a little bit too laggy)
+
+Run DrumChuk in a terminal:
+
+<pre><code>
+	cd ~/src/drumchuk
+	ruby drumchuk.rb
+</code></pre>
+
+Hold down the *A* button and swing the wiimote.  You should see MIDI note info appear in the terminal window.  If nothing happens, press and release the *1* button, and then press and release it again.  Then release and reapply the *A* button, and try again.
+
+While holding the *A* button, swing the nunchuk.  If it doesn't register a hit, unplug the nunchuk from the wiimote, reconnect and try again.
+
+Finally, fire up your MIDI consumer of choice, and set it to only listen on Channel 10 of IAC Port 1 (the controller and note data emitted by WiiToMidi will definitely create some weirdness otherwise).
+
+h2. Playing DrumChuk
+
+The primary goal of DrumChuk is to make it as musical to play as possible while making it compelling, intuitive and realistic to watch in a live setting.  To create the impression of playing a drum kit in 3D space despite the fact that (without IR, anyway) we can't tell absolute position of a wiimote, DrumChuk uses the angle at which you hold the wiimote and nunchuk to symbolize different drums, enabling up to 6 different drums or combinations of drums to be played without pressing any additional buttons.
+
+Due to the design of the system, neither the wiimote nor the nunchuk can be turned past 90 degrees on any axis while "armed" or they will trigger false notes (due to gravity).  That would make it difficult to set the controllers down without causing havoc, so DrumChuk requires that you hold the A button down while playing, and silences its MIDI output when you release the A button.
+
+Each remote is divided into three zones on the "roll":http://en.wikipedia.org/wiki/File:Aileron_roll.gif axis, and two zones on the "pitch":http://en.wikipedia.org/wiki/File:Aptch.gif axis.  To get the "left" zone, twist your wrist left about 45 degrees and then strike vertically.  To get the "right" note, do the opposite.  To get the "swing" note, swing the wiimote like you would a drumstick.  To get the "heel" note, hold the wiimote at a set angle and then strike downward without flicking your wrist -- the heel of your hand should remain the lowest point.
+
+These zones can be reprogrammed to generate different note numbers (and you can make more if you want, but I think this is a reasonable limit given the restrictions in angle accuracy).
+
+Also, because I'm a lefty, the default mappings are set up assuming you hold the wiimote with your left hand and the nunchuk in your right.  But I did assume that you'd be emulating playing a righty-kit with cross-handed hihat technique.  So here are the mappings:
+
+h3. Wiimote
+
+|**|Left|Middle|Right|
+|Swing|Crash|Snare|Hi-tom|
+|Heel|Crash|Snare rimshot|Hi-tom|
+
+h3. Nunchuk
+
+|**|Left|Middle|Right|
+|Swing|Hi-hat|Snare|Low-tom|
+|Heel|Hi-hat & Kick|Kick|Low-tom|
+
+h3. Buttons:
+
+* Holding either B or Z closes the hihats.
+* As always, A must stay down in order for any notes to register.
+
+Enjoy and let me know what you think.
