@@ -23,20 +23,19 @@ h2. Installing DrumChuk
 
 Clone rbcoremidi to your ~/src directory (or wherever):
 
-bq. @git clone git://github.com/gilesbowkett/rbcoremidi.git@
+@git clone git://github.com/gilesbowkett/rbcoremidi.git@
 
 Compile it:
 
-bq. <pre><code>
-cd rbcoremidi
+<pre><code>cd rbcoremidi
 ruby extconf.rb
 make
-ruby coremidi.rb@
+ruby coremidi.rb
 </code></pre>
 
 Install the MIDIator gem:
 
-bq. @sudo gem install midiator@
+@sudo gem install midiator@
 
 Install "WiiToMidi":http://mike.verdone.ca/wiitomidi/ to your Applications folder.
 
@@ -49,7 +48,7 @@ Open @/Applications/Utilities/Audio MIDI Setup@
 
 Clone DrumChuk to your ~/src directory:
 
-bq. @git clone git://github.com/jmileham/drumchuk.git@
+@git clone git://github.com/jmileham/drumchuk.git@
 
 Edit the location of rbcoremidi in drumchuk.rb (if necessary -- if rbcoremidi is in the same parent dir as drumchuk, you're all set).
 
@@ -63,14 +62,13 @@ First open WiiToMidi and follow the instructions for binding your wiimote.  It's
 
 Run DrumChuk in a terminal:
 
-<pre><code>
-	cd ~/src/drumchuk
-	ruby drumchuk.rb
+<pre><code>cd ~/src/drumchuk
+ruby drumchuk.rb
 </code></pre>
 
-Hold down the *A* button and swing the wiimote.  You should see MIDI note info appear in the terminal window.  If nothing happens, press and release the *1* button, and then press and release it again.  Then release and reapply the *A* button, and try again.
+Hold down the A button and swing the wiimote.  You should see MIDI note info appear in the terminal window.  If nothing happens, press and release the 1 button, and then press and release it again.  Then release and reapply the A button, and try again.
 
-While holding the *A* button, swing the nunchuk.  If it doesn't register a hit, unplug the nunchuk from the wiimote, reconnect and try again.
+While holding the A button, swing the nunchuk.  If it doesn't register a hit, unplug the nunchuk from the wiimote, reconnect and try again.
 
 Finally, fire up your MIDI consumer of choice, and set it to only listen on Channel 10 of IAC Port 1 (the controller and note data emitted by WiiToMidi will definitely create some weirdness otherwise).
 

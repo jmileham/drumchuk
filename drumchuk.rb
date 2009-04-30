@@ -20,7 +20,7 @@ require 'trigger'
 include DrumChuk::NoteNumbers
 
 # Does your tone generator have a rimshot sample?  If not, true is good.
-SUPPRESS_RIMSHOT = true
+SUPPRESS_RIMSHOT = false
 
 # A spoonful of syntax sugar
 def returning(value)
@@ -43,13 +43,13 @@ left_hand = lambda do |velocity, roll, pitch, buttons|
     case roll
     when -90..-16
       # Pick up wide mis-hits as rimshots
-      if pitch > 25 or SUPPRESS_RIMSHOT
+      if pitch > 10 or SUPPRESS_RIMSHOT
         notes << GM_CRASH_1
       else
         notes << RIMSHOT
       end      
     when -15..45
-      if pitch > 25 or SUPPRESS_RIMSHOT
+      if pitch > 10 or SUPPRESS_RIMSHOT
         notes << GM_SNARE
       else
         notes << RIMSHOT
@@ -67,11 +67,11 @@ right_hand = lambda { |velocity, roll, pitch, buttons|
       if pitch > -55
         notes << (buttons.down?(:b_button) || buttons.down?(:z_button) ? GM_HATS_CLOSED : GM_HATS_OPEN)
       end
-      if pitch < 30
+      if pitch < 35
         notes << GM_KICK
       end      
     when -35..20
-      if pitch > 30
+      if pitch > 35
         notes << SNARE_RIGHT
       else
         notes << GM_KICK
