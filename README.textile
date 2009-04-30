@@ -2,8 +2,9 @@ h1. DrumChuk
 
 By John Mileham
 
-My site: http://studiobleep.com
-My band: http://franklinkite.com
+My site: "http://studiobleep.com":http://studiobleep.com
+
+My band: "http://franklinkite.com":http://franklinkite.com
 
 DrumChuk is a customizable Ruby-based MIDI Drum Controller for the Wii Remote and Nunchuk.  I wrote it so that I could play it live and have it look right and sound good.  At the moment it's not a picnic to install and run, and has calibrations coded into it that may only work well on my particular wiimote and nunchuk, but I thought it might be interesting to performers looking for an expressive and playable Wii-based drum controller that they can customize to suit their needs.
 
