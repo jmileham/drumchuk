@@ -1,6 +1,6 @@
 h1. DrumChuk
 
-By John Mileham
+By John Mileham (john@the domain below)
 
 My site: "http://studiobleep.com":http://studiobleep.com
 
