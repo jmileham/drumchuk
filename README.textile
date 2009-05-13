@@ -92,7 +92,7 @@ h3. Wiimote
 
 h3. Nunchuk
 
-|**|Left|Middle|Slight Right|Hard Right
+|**|Left|Middle|Slight Right|Hard Right|
 |Swing|Hi-hat|Snare|Hi-tom|Low-tom|
 |Heel|Hi-hat & Kick|Kick|Hi-tom|Low-tom|
 
