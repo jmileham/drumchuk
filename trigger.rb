@@ -1,7 +1,7 @@
 module DrumChuk
   class Trigger
     SWING_THRESHOLD = -0.25 # in G
-    STRIKE_THRESHOLD = -0.0 # in G
+    STRIKE_THRESHOLD = -0.1 # in G
     FULL_VELOCITY = 6.1 # in m/s (this is really approximate...)
 
     VEL_RANGE = 0.7 # in % of full dynamic range (can be >1).  Lower == narrower dynamic range, but FULL_VELOCITY still == 127
@@ -43,7 +43,7 @@ module DrumChuk
 
     def trigger(midi_interface)
       # Keep the previous radius value around to compare for fall-offs in 
-      @radius = Math::sqrt(@x**2 + @y**2 + @z**2) * (@z > 0 ? 1 : -1)
+      @radius = Math::sqrt(@x**2 + @y**2 + @z **2) * (@z > 0 ? 1 : -1)
 
       @prev_roll = @roll
       @roll = theta(@x, @z)

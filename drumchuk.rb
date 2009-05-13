@@ -1,4 +1,4 @@
-# Version 0.4.  More cowbell.
+# Version 0.5.  More cowbell.
 
 # This is where you set up your trigger mappings.
 
@@ -20,7 +20,7 @@ require 'trigger'
 include DrumChuk::NoteNumbers
 
 # Does your tone generator have a rimshot sample?  If not, true is good.
-SUPPRESS_RIMSHOT = false
+SUPPRESS_RIMSHOT = true
 
 # A spoonful of syntax sugar
 def returning(value)
@@ -33,29 +33,43 @@ midi_interface = DrumChuk::MidiInterface.new
 quiet_hat_stomp = {:hit_note => GM_HATS_STOMP, :hit_velocity => 64}
 
 buttons = DrumChuk::ButtonSet.new(midi_interface, {
-  :b_button => quiet_hat_stomp,
-  :z_button => quiet_hat_stomp
+  :b_button => quiet_hat_stomp
 })
 midi_interface.register_listener(buttons)
 
 left_hand = lambda do |velocity, roll, pitch, buttons|
   returning [] do |notes|
-    case roll
-    when -90..-16
-      # Pick up wide mis-hits as rimshots
-      if pitch > 10 or SUPPRESS_RIMSHOT
+    if buttons.down?(:z_button)
+      case roll
+      when -90..20
         notes << GM_CRASH_1
       else
-        notes << RIMSHOT
-      end      
-    when -15..45
-      if pitch > 10 or SUPPRESS_RIMSHOT
-        notes << GM_SNARE
-      else
-        notes << RIMSHOT
-      end      
-    when 46..100
-      notes << GM_HI_TOM
+        notes << GM_CRASH_2
+      end
+      # Always kick with crash... (cheating)
+      notes << GM_KICK
+    else
+      case roll
+      when -90..-16
+        # Pick up wide mis-hits as rimshots
+        if pitch > 10 or SUPPRESS_RIMSHOT
+          notes << GM_CRASH_1
+          # Always kick with crash... (cheating)
+          notes << GM_KICK
+        else
+          notes << RIMSHOT
+        end      
+      when -15..30
+        if pitch > 10 or SUPPRESS_RIMSHOT
+          notes << GM_SNARE
+        else
+          notes << RIMSHOT
+        end      
+      when 31..50
+        notes << GM_HI_TOM
+      when 51..90
+        notes << GM_LOW_TOM
+      end
     end
   end
 end
@@ -63,20 +77,22 @@ end
 right_hand = lambda { |velocity, roll, pitch, buttons|
   returning [] do |notes|
     case roll
-    when -100..-36
+    when -100..-31
       if pitch > -55
-        notes << (buttons.down?(:b_button) || buttons.down?(:z_button) ? GM_HATS_CLOSED : GM_HATS_OPEN)
+        notes << (buttons.down?(:b_button) ? GM_HATS_CLOSED : GM_HATS_OPEN)
       end
       if pitch < 35
         notes << GM_KICK
       end      
-    when -35..20
+    when -30..19
       if pitch > 35
         notes << SNARE_RIGHT
       else
         notes << GM_KICK
       end      
-    when 21..100
+    when 20..45
+      notes << GM_HI_TOM
+    when 46..90
       notes << GM_LOW_TOM
     end
   end

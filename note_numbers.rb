@@ -5,7 +5,8 @@ module DrumChuk
     GM_HATS_CLOSED = 42
     GM_HATS_STOMP = 44
     GM_HATS_OPEN = 46
-    GM_LOW_TOM = 45
+    GM_HATS_HALF_OPEN = 81
+    GM_LOW_TOM = 43
     GM_MID_TOM = 47
     GM_HI_TOM = 48
     GM_CRASH_1 = 49

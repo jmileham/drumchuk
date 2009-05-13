@@ -86,15 +86,15 @@ Also, because I'm a lefty, the default mappings are set up assuming you hold the
 
 h3. Wiimote
 
-|**|Left|Middle|Right|
-|Swing|Crash|Snare|Hi-tom|
-|Heel|Crash|Snare rimshot|Hi-tom|
+|**|Left|Middle|Slight Right|Hard Right|
+|Swing|Crash|Snare|Hi-tom|Low-tom|
+|Heel|Crash|Snare rimshot|Hi-tom|Low-tom|
 
 h3. Nunchuk
 
-|**|Left|Middle|Right|
-|Swing|Hi-hat|Snare|Low-tom|
-|Heel|Hi-hat & Kick|Kick|Low-tom|
+|**|Left|Middle|Slight Right|Hard Right
+|Swing|Hi-hat|Snare|Hi-tom|Low-tom|
+|Heel|Hi-hat & Kick|Kick|Hi-tom|Low-tom|
 
 h3. Buttons:
 
