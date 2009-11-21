@@ -1,7 +1,7 @@
 module DrumChuk
   class Trigger
     SWING_THRESHOLD = -0.25 # in G
-    STRIKE_THRESHOLD = -0.1 # in G
+    STRIKE_THRESHOLD = -0.15 # in G
     FULL_VELOCITY = 6.1 # in m/s (this is really approximate...)
 
     VEL_RANGE = 0.7 # in % of full dynamic range (can be >1).  Lower == narrower dynamic range, but FULL_VELOCITY still == 127

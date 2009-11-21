@@ -59,15 +59,15 @@ left_hand = lambda do |velocity, roll, pitch, buttons|
         else
           notes << RIMSHOT
         end      
-      when -15..30
+      when -15..35
         if pitch > 10 or SUPPRESS_RIMSHOT
           notes << GM_SNARE
         else
           notes << RIMSHOT
         end      
-      when 31..50
+      when 36..55
         notes << GM_HI_TOM
-      when 51..90
+      when 56..90
         notes << GM_LOW_TOM
       end
     end
